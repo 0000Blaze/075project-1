@@ -208,7 +208,7 @@ void logi()
         {
             result+=pow(-1,i-1)*pow(value-1,i)/i;
         }
-
+    result=log(value);
     printf("\n");
     printf("ln(%.2f) = %.3f",value,result);
 }
