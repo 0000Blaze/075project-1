@@ -1,9 +1,8 @@
-#include "sinerecuv.c"
-#include "cosinerecuv.c"
 #include<stdio.h>
 #include<math.h>
 #define PI 3.14159
 #include<windows.h>
+
 void table();
 void add();
 void sub();
@@ -18,14 +17,19 @@ void erro();
 void selet();
 int factorial(int n);
 float numerator(float ,int );
+float cosine(float , int );
+float sine(float , int );
+void po();
+void sq();
 
 void main()
 {
     char con='y';
     label:
     system ("cls");
-    printf("select what you want to do \n");
-    tabel();
+    printf("***********SCIENTIFIC CALCULATOR*************\n\n");
+    table();
+    printf(" Select what you want to do: ");
     if(con=='Y' || con=='y')
     {
             selet();
@@ -37,23 +41,25 @@ void main()
             goto label;
         }
 }
-void tabel()
+void table()
 {
-    printf("Addition          -  + \n");
-    printf("subtraction       -  - \n");
-    printf("Multiplication    -  * \n");
-    printf("Division          -  / \n");
-    printf("sine function     -  s \n");
-    printf("cosine function   -  c \n");
-    printf("tan function      -  t \n");
-    printf("logarithmic       -  l \n");
-    printf("exponential       -  e \n\n");
+    printf(" 1.Addition          -  + \n\n");
+    printf(" 2.subtraction       -  - \n\n");
+    printf(" 3.Multiplication    -  * \n\n");
+    printf(" 4.Division          -  / \n\n");
+    printf(" 5.sine function     -  s \n\n");
+    printf(" 6.cosine function   -  c \n\n");
+    printf(" 7.tan function      -  t \n\n");
+    printf(" 8.Natural log       -  l \n\n");
+    printf(" 9.exponential       -  e \n\n");
+    printf("10.power function    -  p \n\n");
+    printf("11.square root       -  q \n\n");
 }
 void erro()
 {
     printf("invalid input \n");
 }
-selet()
+void selet()
 {
     char c;
     fflush(stdin);
@@ -85,6 +91,12 @@ selet()
         break;
         case 'e':
             expo();
+        break;
+        case 'p':
+            po();
+        break;
+        case 'q':
+            sq();
         break;
         default:
             erro();
@@ -197,18 +209,18 @@ void tani()
 }
 void logi()
 {
-    float value,result;
-    int i,n;
+    float value,result=0;
+    int i,n,j=1;
     printf("Enter value :");
     scanf("%f",&value);
-    result=(value-1);
     printf("Enter the iteration: ");
     scanf("%d",&n);
         for(i=1;i<=n;i++)
         {
-            result+=pow(-1,i-1)*pow(value-1,i)/i;
+            result=result+(pow(((value-1)/(value+1)),j)/j);
+            j+=2;
         }
-    result=log(value);
+    result=result*2;
     printf("\n");
     printf("ln(%.2f) = %.3f",value,result);
 }
@@ -242,4 +254,37 @@ float numerator(float x,int y)
     float z;
     z=pow(x,y);
     return z;
+}
+float sine(float an, int n)
+{
+    if (an == 0 || n == 0)
+        return 0;
+    else
+        return (-1*pow(-1,n)*pow(an,2*n-1)/factorial(2*n-1) + sine(an, n - 1));
+}
+float cosine(float an, int n)
+{
+    if (an == 0 || n==0 )
+        return 1;
+    else
+        return (pow(-1,n)*pow(an,2*n)/factorial(2*n) + cosine(an, n - 1));
+}
+void po()
+{
+    int n;
+    float nu,result;
+    printf("Enter number:");
+    scanf(" %f",&nu);
+    printf("Enter power:");
+    scanf(" %d",&n);
+    result=pow(nu,n);
+    printf("Result = %.3f",result);
+}
+void sq()
+{
+    float nu,result;
+    printf("Enter number:");
+    scanf(" %f",&nu);
+    result=sqrt(nu);
+    printf("Square root of %.3f is %.3f",nu,result);
 }
